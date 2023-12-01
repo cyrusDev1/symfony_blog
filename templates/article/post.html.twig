@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Regster !
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="max-w-sm mx-auto mt-20">
+
+		{{ form_start(formArticle) }}
+		<h1 class="text-center text-3xl mb-5">Post an article !</h1>
+  		{% if errors is not empty %}
+			<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+				<svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+					<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+				</svg>
+				<span class="sr-only">Danger</span>
+				<div>
+					<span class="font-medium">Ensure that these requirements are met:</span>
+					<ul class="mt-1.5 list-disc list-inside">
+						{% for error in errors %}
+							<li>{{ error | replace({"ERROR:":""}) }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		{% endif %}
+		<div class="mb-5">
+			<label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+			{{ form_widget(formArticle.title, {'attr': {'placeholder': "Title", 'class': "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"}}) }}
+		</div>
+		<div class="mb-5">
+			<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content</label>
+			{{ form_widget(formArticle.content, {'attr': {'placeholder': "Content", 'class': "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"}}) }}
+		</div>
+		<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Post an article</button>
+		{{ form_end(formArticle) }}
+
+
+	</div>
+
+{% endblock %}
+

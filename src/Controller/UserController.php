@@ -11,19 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/user", name="app_user")
-     */
-    public function index(): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
+   
     /**
      * @Route("/register", name="register")
      */
@@ -42,10 +34,30 @@ class UserController extends AbstractController
             $manager->flush();
         }
         $errors = $form->getErrors(true, false);
-        dump($errors);
         return $this->render('user/register.html.twig',
             ['formRegister' => $form->createView(),
              'errors' => $errors]
         );
+    }
+
+
+    /**
+     * @Route("/login", name="login")
+     */
+
+    public function login(AuthenticationUtils $authenticationUtils)
+    {   
+        $error = $authenticationUtils->getLastAuthenticationError();
+        return $this->render('user/login.html.twig',
+            ['error' => $error]);
+    }
+
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+
+    public function logout()
+    {   
     }
 }

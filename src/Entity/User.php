@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use PhpParser\Node\Expr\Cast\Array_;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -21,6 +23,12 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="user")
+     */
+    private $articles;
+
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -100,8 +108,17 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles() {}
+    public function getRoles() { return ['ROLE_USER']; }
     public function getSalt() {}
     public function eraseCredentials() {}
 
+
+    /**
+     * @return ArrayCollection|Article[]
+     */
+
+    public function getArticles(): ?array
+    {
+        return $this->articles;
+    }
 }
