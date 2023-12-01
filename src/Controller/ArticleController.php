@@ -44,6 +44,7 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($article);
             $manager->flush();
+            return $this->redirectToRoute('home');
         }
         return $this->render('article/post.html.twig', [
             'formArticle' => $form->createView(),
